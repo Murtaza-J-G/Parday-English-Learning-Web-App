@@ -1,6 +1,6 @@
 {
-  "name": "Vocably Vocabulary Learning",
-  "short_name": "Vocably",
+  "name": "Parday Vocabulary Learning",
+  "short_name": "Parday",
   "description": "Learn vocabulary with spaced repetition.",
   "start_url": "/",
   "display": "standalone",
