@@ -1,0 +1,10 @@
+{
+  "name": "Vocably Vocabulary Learning",
+  "short_name": "Vocably",
+  "description": "Learn vocabulary with spaced repetition.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f8fc",
+  "theme_color": "#6258e8",
+  "icons": []
+}

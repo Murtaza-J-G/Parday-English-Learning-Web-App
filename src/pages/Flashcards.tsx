@@ -1,0 +1,13 @@
+import { useState } from "react";
+import { ArrowLeft, ArrowRight, Bookmark, RotateCcw, Shuffle, Volume2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { Button, Card, PageHeader, ProgressBar } from "../components";
+import { useAppStore } from "../store";
+import { speak } from "../utils";
+export default function Flashcards(){
+ const words=useAppStore(s=>s.words);const update=useAppStore(s=>s.updateWord);const [index,setIndex]=useState(0);const [flip,setFlip]=useState(false);
+ const word=words[index];
+ const next=(n:number)=>{setIndex((index+n+words.length)%words.length);setFlip(false)};
+ const shuffle=()=>{const target=Math.floor(Math.random()*words.length);setIndex(target);setFlip(false)};
+ return <div className="page-stack"><PageHeader eyebrow="PRACTICE YOUR RECALL" title="Flashcards" description="Flip through your collection at your own pace." action={<Button variant="secondary" icon={<Shuffle size={16}/>} onClick={shuffle}>Shuffle</Button>}/><div className="flashcard-page"><div className="learning-meta"><span><Bookmark size={15}/> All vocabulary</span><strong>{index+1}<small> / {words.length}</small></strong></div><ProgressBar value={(index+1)/Math.max(1,words.length)*100}/>{word&&<motion.div className={`flashcard-large standalone ${flip?"flipped":""}`} key={word.id} initial={{opacity:0,scale:.98}} animate={{opacity:1,scale:1}}><div className="flashcard-top"><span className="card-tag">{flip?"MEANING":"WORD"}</span><button className="icon-btn" onClick={()=>update(word.id,{favorite:!word.favorite})} aria-label="Toggle favorite"><Bookmark size={18} fill={word.favorite?"currentColor":"none"}/></button></div><button className="flashcard-click-area" onClick={()=>setFlip(!flip)} aria-label="Flip flashcard">{!flip?<><span className="phonetic-big">{word.phonetic}</span><h2>{word.word}</h2><span className="flip-hint"><RotateCcw size={14}/> Click to reveal meaning</span></>:<><div className="translation-big">{word.translation}</div><p className="definition-text">{word.definition}</p><div className="example-box"><span>EXAMPLE</span><p>“{word.example}”</p></div></>}</button><div className="flashcard-bottom"><span>{word.partOfSpeech}</span><button className="text-link" onClick={()=>speak(word.word)}><Volume2 size={15}/> Hear pronunciation</button></div></motion.div>}<div className="flashcard-controls"><Button variant="secondary" onClick={()=>next(-1)} icon={<ArrowLeft size={16}/>}>Previous</Button><Button onClick={()=>setFlip(!flip)} icon={<RotateCcw size={16}/>}>Flip card</Button><Button variant="secondary" onClick={()=>next(1)} icon={<ArrowRight size={16}/>}>Next</Button></div></div></div>;
+}
