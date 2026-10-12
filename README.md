@@ -1,4 +1,4 @@
-# Vocably — English Vocabulary Learning Platform
+# Parday — English Vocabulary Learning Platform
 
 A responsive vocabulary learning app built with React, TypeScript, Vite, Tailwind CSS v4, Zustand persistence, React Router, Recharts, Lucide icons, and Framer Motion.
 
